@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Guardian;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -27,5 +29,9 @@ class DatabaseSeeder extends Seeder
         ]);
         $role = Role::create(['name'=> 'Admin']);
         $user ->assignRole($role);
+        Student::factory(10)
+            ->has(Guardian::factory()->count(3))
+            ->create();
     }
+
 }
