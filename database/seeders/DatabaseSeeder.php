@@ -29,9 +29,18 @@ class DatabaseSeeder extends Seeder
         ]);
         $role = Role::create(['name'=> 'Admin']);
         $user ->assignRole($role);
+        Guardian::factory(10);
         Student::factory(10)
             ->has(Guardian::factory()->count(3))
             ->create();
+       if (!User::where('email', 'admin@example.com')->exists()) {
+        User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('<PASSWORD>'),
+        ]);
+    };
+
     }
 
 }

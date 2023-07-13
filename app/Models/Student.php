@@ -13,10 +13,6 @@ class Student extends Model
 
     public function guardian()
     {
-        return $this->belongsTo(Guardian::class);
-    }
-    public function guardians()
-    {
         return $this->belongsToMany(Guardian::class);
     }
 }

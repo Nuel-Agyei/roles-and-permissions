@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('guardians', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 225);
+            $table->string('name', 225)->default('');
             $table->string('email', 225);
             $table->string('phone', 225);
-            $table->string('relation_type')->index();
+            $table->string('relation_type')->index()->default('guardian');
             $table->timestamps();
         });
         Schema::create('guardian_student', function (Blueprint $table) {

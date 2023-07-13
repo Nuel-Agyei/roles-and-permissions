@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name', 225);
-            $table->string('guardian', 225);
-            $table->string('class', 225);
+            $table->bigInteger('guardian_id')->nullable();
+            $table->string('class', 225)->default('');
             $table->timestamps();
         });
     }

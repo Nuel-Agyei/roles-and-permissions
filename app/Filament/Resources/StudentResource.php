@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\StudentResource\Pages;
 use App\Filament\Resources\StudentResource\RelationManagers;
+use App\Filament\Resources\StudentResource\RelationManagers\GuardiansRelationManager;
 use App\Models\Student;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
@@ -12,6 +13,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -27,7 +29,8 @@ class StudentResource extends Resource
             ->schema([
                 TextInput::make('name'),
                 Select::make('guardian.name')
-                    ->label('Parent/Guardian'),
+                    ->label('Parent/Guardian')
+                    ->relationship('guardian', 'name'),
                 Select::make('class')
                 ->options([
                     'class 1' => 'Class 1',
@@ -42,7 +45,11 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')
+                    ->searchable(),
+                TextColumn::make('guardian.name'),
+                TextColumn::make('class')
+                    ->sortable(),
             ])
             ->filters([
                 //
@@ -58,7 +65,7 @@ class StudentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            GuardiansRelationManager::class
         ];
     }
 
